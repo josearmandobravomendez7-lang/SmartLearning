@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="mb-10 text-center">
+    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Catálogo de Cursos Próximos</h2>
+    <p class="text-gray-600 text-lg">Inscríbete en nuestros programas más demandados y actualiza tus habilidades.</p>
+</div>
+
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% for curso in cursos %}
+    <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow flex flex-col">
+        {% if curso.imagen_url %}
+            <img src="{{ curso.imagen_url }}" alt="{{ curso.nombre }}" class="w-full h-52 object-cover">
+        {% else %}
+            <div class="w-full h-52 bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center">
+                <span class="text-indigo-400 font-bold text-xl">SmartAR Course</span>
+            </div>
+        {% endif %}
+        <div class="p-6 flex-grow flex flex-col">
+            <div class="flex justify-between items-start mb-2">
+                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded">{{ curso.clave }}</span>
+                <span class="text-xs font-bold text-green-700 bg-green-50 px-2 py-1 rounded">{{ curso.status }}</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">{{ curso.nombre }}</h3>
+            <p class="text-gray-600 mb-6 line-clamp-3 flex-grow">{{ curso.descripcion }}</p>
+
+            <div class="border-t border-gray-100 pt-4 mb-4">
+                <div class="flex justify-between text-sm text-gray-600 mb-2">
+                    <span class="flex items-center gap-1">⏱ {{ curso.duracion_horas }} horas</span>
+                    <span class="flex items-center gap-1">📅 {{ curso.fecha_inicio|date:"d M Y" }}</span>
+                </div>
+                <div class="text-right font-black text-xl text-green-600">${{ curso.costo }}</div>
+            </div>
+            <a href="{% url 'detalle_curso' curso.id %}" class="block text-center w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition">Ver Información Completa</a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-span-full text-center py-16 bg-white rounded-xl border border-dashed border-gray-300">
+        <div class="text-5xl mb-4">📭</div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">No hay cursos activos</h3>
+        <p class="text-gray-500">Vuelve más tarde para ver nuestras nuevas ofertas académicas.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

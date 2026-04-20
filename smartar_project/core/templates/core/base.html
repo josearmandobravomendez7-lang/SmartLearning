@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartAR Learning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+    <nav class="bg-indigo-700 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold flex items-center gap-2">
+                 SmartAR Learning
+            </a>
+            <div class="space-x-6 font-medium">
+                <a href="/" class="hover:text-indigo-200 transition">Acerca de</a>
+                <a href="/catalogo/" class="hover:text-indigo-200 transition">Catálogo de Cursos</a>
+                <a href="/admin/" class="bg-indigo-600 px-4 py-2 rounded border border-indigo-500 hover:bg-indigo-500 transition">Panel Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-8 flex-grow p-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded shadow-sm" role="alert">
+                    <p class="font-bold">Notificación</p>
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-6 mt-12">
+        <p>&copy; 2026 SmartAR Learning. Educando al futuro, hoy.</p>
+    </footer>
+</body>
+</html>
